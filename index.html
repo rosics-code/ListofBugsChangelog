@@ -55,10 +55,128 @@ li {
   color: black;
 }
 
+    .container {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .poll-form {
+      margin-bottom: 20px;
+    }
+
+    .results {
+      border-top: 1px solid #555;
+      padding-top: 10px;
+    }
+
+    .results h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .results p {
+      margin: 5px 0;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 8px 12px;
+      background-color: #555;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #777;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
 </style>
   
 <h1 class="arial">List of Bugs Changelog</h1>
 <p class="arial">Just a changelog for The List of Bugs! This page sorts from Latest to Oldest to see latest updates when page load!</p>
+
+
+  <div class="container">
+       <h1 style="font-size: 23px;">Poll</h1>
+    <h1 style="font-size: 20px;">Should we have more things on this Vercel app other than just a Changelog?</h1>
+    <form id="poll-form" class="poll-form">
+      <label>
+        <input type="radio" name="option" value="yes"> Yes
+      </label>
+      <br>
+      <label>
+        <input type="radio" name="option" value="no"> No
+      </label>
+      <br>
+      <button type="submit">Vote</button>
+    </form>
+
+    <div id="results" class="results">
+      <h2>Results:</h2>
+      <p>Yes: <span id="yes-count">0</span></p>
+      <p>No: <span id="no-count">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    const pollForm = document.getElementById('poll-form');
+    const results = document.getElementById('results');
+
+    let votes = {
+      yes: 0,
+      no: 0
+    };
+
+    // Load votes from localStorage if available
+    if (localStorage.getItem('votes')) {
+      votes = JSON.parse(localStorage.getItem('votes'));
+    }
+
+    // Check if the user has already voted
+    if (localStorage.getItem('hasVoted')) {
+      pollForm.style.display = 'none';
+    }
+
+    // Display initial results
+    updateResults();
+
+    pollForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const selectedOption = document.querySelector('input[name="option"]:checked');
+      if (selectedOption) {
+        const optionValue = selectedOption.value;
+        votes[optionValue]++;
+
+        // Store votes and flag in localStorage
+        localStorage.setItem('votes', JSON.stringify(votes));
+        localStorage.setItem('hasVoted', 'true');
+
+        // Hide the form
+        pollForm.style.display = 'none';
+
+        // Update results
+        updateResults();
+      } else {
+        alert('Please select an option before voting.');
+      }
+    });
+
+    function updateResults() {
+      document.getElementById('yes-count').textContent = votes.yes;
+      document.getElementById('no-count').textContent = votes.no;
+    }
+  </script>
 
 <div class="update">
 
