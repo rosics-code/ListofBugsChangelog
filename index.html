@@ -54,7 +54,32 @@ strong {
 li {
   color: black;
 }
+.nav {
+      display: flex;
+      background-color: #333;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      transition: background-color 0.3s;
+    }
+
+    .nav a:hover {
+      background-color: #575757;
+    }
 </style>
+  
+ <div class="nav">
+    <a class="arial" href="about.html">About</a>
+    <a class="arial" href="contact.html">Contact</a>
+    <a class="arial" href="https://scratch.mit.edu/">Scratch Website</a>
+  </div>  
   
 <h1 class="arial">List of Bugs Changelog</h1>
 <p class="arial">Just a changelog for The List of Bugs! This page sorts from Latest to Oldest to see latest updates when page load!</p>
